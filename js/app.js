@@ -1,38 +1,46 @@
 /**Global variables */
 const navList = document.getElementById("navbar__list");
 const sections = Array.from(document.querySelectorAll("section"));
-
 /** build the nav */
 
 function createListItem() {
   const fragment = document.createDocumentFragment();
   for (const sec of sections) {
     const listItem = document.createElement("li");
-    listItem.innerHTML = `<li><a href="#${sec.id}" data-nav="${sec.id}"class="menu__link"</a>${sec.dataset.nav}</a></li>`;
+    listItem.innerHTML = `<a href="#${sec.id}" data-nav="${sec.id}"class="menu__link"</a>${sec.dataset.nav}</a>`;
     fragment.appendChild(listItem);
   }
   navList.appendChild(fragment);
 }
 createListItem();
 
-/** Add active class */
-function addActiveClass(section) {
-  // Add Link Active
-  document.querySelector(".active__link")?.classList.remove("active__link")
-  document.querySelector(`[href="#${section}]"`)?.classList.add('active__link');
-}
-/** Add  when scroll */
+/** Add active class when scroll */
 
 window.onscroll = function () {
+  let current = "";
   sections.forEach((section) => {
     if (
       section.getBoundingClientRect().top >= -330 &&
       section.getBoundingClientRect().top <= 290
-    ) {
+      ) {
         section.classList.add("your-active-class");
+        current = section.getAttribute("id")
     } else {
         section.classList.remove("your-active-class");
     }
-    addActiveClass(section.DOCUMENT_FRAGMENT_NODE.dataset.nav);
   });
+  
+  /** Make an array to store the lists in */
+  
+  const navArr = document.querySelectorAll('nav ul li a')
+
+  navArr.forEach((li) => {
+    li.classList.remove("active");
+    if (li.href.includes(current)) {
+      console.log(current);
+      li.classList.add("active")
+    } else {
+      console.log("false");
+    }
+  })
 };
