@@ -1,8 +1,8 @@
-// Global variables
+/**Global variables */
 const navList = document.getElementById("navbar__list");
 const sections = Array.from(document.querySelectorAll("section"));
 
-// build the nav
+/** build the nav */
 
 function createListItem() {
   const fragment = document.createDocumentFragment();
@@ -15,23 +15,15 @@ function createListItem() {
 }
 createListItem();
 
-// make the scrolling smooth
+/** Add active class */
+function addActiveClass(section) {
+  // Add Link Active
+  document.querySelector(".active__link")?.classList.remove("active__link")
+  document.querySelector(`[href="#${section}]"`)?.classList.add('active__link');
+}
+/** Add  when scroll */
 
-navList.addEventListener("click", (scrollTo) => {
-  scrollTo.preventDefault();
-  if (scrollTo.target.dataset.nav) {
-    document
-      .getElementById(`${scrollTo.target.dataset.nav}`)
-      .scrollIntoView({ behavior: "smooth" });
-    setTimeout(() => {
-      location.hash = `${scrollTo.target.dataset.nav}`;
-    }, 200);
-  }
-});
-
-// Add active class when scroll
-
-window.onscroll = function (active) {
+window.onscroll = function () {
   sections.forEach((section) => {
     if (
       section.getBoundingClientRect().top >= -330 &&
@@ -41,5 +33,6 @@ window.onscroll = function (active) {
     } else {
         section.classList.remove("your-active-class");
     }
+    addActiveClass(section.DOCUMENT_FRAGMENT_NODE.dataset.nav);
   });
 };
