@@ -17,30 +17,27 @@ createListItem();
 /** Add active class when scroll */
 
 window.onscroll = function () {
-  let current = "";
+  let currentLink = "";
   sections.forEach((section) => {
     if (
       section.getBoundingClientRect().top >= -330 &&
       section.getBoundingClientRect().top <= 290
       ) {
         section.classList.add("your-active-class");
-        current = section.getAttribute("id")
+        currentLink = section.getAttribute("id")
     } else {
         section.classList.remove("your-active-class");
     }
   });
   
-  /** Make an array to store the lists in */
+  /** Make an array to store the links in */
   
   const navArr = document.querySelectorAll('nav ul li a')
 
   navArr.forEach((li) => {
     li.classList.remove("active");
-    if (li.href.includes(current)) {
-      console.log(current);
+    if (li.href.includes(currentLink)) {
       li.classList.add("active")
-    } else {
-      console.log("false");
     }
   })
 };
